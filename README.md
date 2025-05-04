@@ -28,9 +28,9 @@ The server will run at:
 http://127.0.0.1:8000
 Visit http://127.0.0.1:8000/docs to explore and test the API.
 
-📤 API Endpoints
-POST /upload-csv/
-Upload a .csv file with the columns: id, region, age, seed.
+###📤 API Endpoints
+- POST /upload-csv/
+- Upload a .csv file with the columns: id, region, age, seed.
 
 Response:
 ```bash
@@ -39,11 +39,11 @@ Response:
   "total_records": 878
 }
 ```
-GET /generate-sequence/?id=id_0001
-Generates a DNA sequence for a sample based on its region, age, and seed.
+- GET /generate-sequence/?id=id_0001
+- Generates a DNA sequence for a sample based on its region, age, and seed.
 
-POST /compare-sequences/
-Compare two sample sequences for similarity.
+- POST /compare-sequences/
+- Compare two sample sequences for similarity.
 
 Body Example:
 ```bash

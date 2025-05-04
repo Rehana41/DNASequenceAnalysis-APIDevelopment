@@ -12,12 +12,12 @@ This project provides a FastAPI-based backend to analyze ancient DNA samples usi
 - Cleanly structured and easily extendable FastAPI app.
 - Swagger UI interface at `/docs`.
 
-Install all dependencies:
+### Install all dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-▶️ Running the App
+### ▶️ Running the App
 Start the FastAPI server using:
 
 ```bash
@@ -30,7 +30,7 @@ Visit http://127.0.0.1:8000/docs to explore and test the API.
 
 ### 📤 API Endpoints
 ```bash
-- **1. POST /upload-csv/
+- **1. POST /upload-csv/**
  Upload a .csv file with the columns: id, region, age, seed.
 
 Response:
@@ -40,10 +40,10 @@ Response:
   "total_records": 878
 }
 ```
-- **2. GET /generate-sequence/?id=id_0001
+- **2. GET /generate-sequence/?id=id_0001**
   Generates a DNA sequence for a sample based on its region, age, and seed.
 
-- **3. POST /compare-sequences/
+- **3. POST /compare-sequences/**
   Compare two sample sequences for similarity.
 
 Body Example:
@@ -54,7 +54,7 @@ Body Example:
 }
 ```
 
-- **4. POST /ask-me-anything/
+- **4. POST /ask-me-anything/**
   Ask a general question using Gemini Pro.
 
 ```bash

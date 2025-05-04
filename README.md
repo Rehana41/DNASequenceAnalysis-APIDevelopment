@@ -29,8 +29,8 @@ http://127.0.0.1:8000
 Visit http://127.0.0.1:8000/docs to explore and test the API.
 
 ### 📤 API Endpoints
-```bash
-- **1. POST /upload-csv/**
+
+**1. POST /upload-csv/**
  Upload a .csv file with the columns: id, region, age, seed.
 
 Response:
@@ -40,10 +40,10 @@ Response:
   "total_records": 878
 }
 ```
-- **2. GET /generate-sequence/?id=id_0001**
+**2. GET /generate-sequence/?id=id_0001**
   Generates a DNA sequence for a sample based on its region, age, and seed.
 
-- **3. POST /compare-sequences/**
+**3. POST /compare-sequences/**
   Compare two sample sequences for similarity.
 
 Body Example:
@@ -62,4 +62,4 @@ Body Example:
   "question": "What are motifs in DNA?"
 }
 ```
-```
+

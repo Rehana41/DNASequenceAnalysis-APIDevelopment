@@ -28,9 +28,10 @@ The server will run at:
 http://127.0.0.1:8000
 Visit http://127.0.0.1:8000/docs to explore and test the API.
 
-###📤 API Endpoints
-- POST /upload-csv/
-- Upload a .csv file with the columns: id, region, age, seed.
+### 📤 API Endpoints
+```bash
+- **1. POST /upload-csv/
+ Upload a .csv file with the columns: id, region, age, seed.
 
 Response:
 ```bash
@@ -39,11 +40,11 @@ Response:
   "total_records": 878
 }
 ```
-- GET /generate-sequence/?id=id_0001
-- Generates a DNA sequence for a sample based on its region, age, and seed.
+- **2. GET /generate-sequence/?id=id_0001
+  Generates a DNA sequence for a sample based on its region, age, and seed.
 
-- POST /compare-sequences/
-- Compare two sample sequences for similarity.
+- **3. POST /compare-sequences/
+  Compare two sample sequences for similarity.
 
 Body Example:
 ```bash
@@ -53,11 +54,12 @@ Body Example:
 }
 ```
 
-POST /ask-me-anything/
-Ask a general question using Gemini Pro.
+- **4. POST /ask-me-anything/
+  Ask a general question using Gemini Pro.
 
 ```bash
 {
   "question": "What are motifs in DNA?"
 }
+```
 ```

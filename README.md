@@ -15,12 +15,14 @@ This project provides a FastAPI-based backend to analyze ancient DNA samples usi
 Install all dependencies:
 ```bash
 pip install -r requirements.txt
+```
 
 ▶️ Running the App
 Start the FastAPI server using:
 
 ```bash
 uvicorn main:app --reload
+```
 
 The server will run at:
 http://127.0.0.1:8000
@@ -31,14 +33,12 @@ POST /upload-csv/
 Upload a .csv file with the columns: id, region, age, seed.
 
 Response:
-
-json
-Copy
-Edit
+```bash
 {
   "message": "Data uploaded and parsed successfully.",
   "total_records": 878
 }
+```
 GET /generate-sequence/?id=id_0001
 Generates a DNA sequence for a sample based on its region, age, and seed.
 
@@ -46,22 +46,18 @@ POST /compare-sequences/
 Compare two sample sequences for similarity.
 
 Body Example:
-
-json
-Copy
-Edit
+```bash
 {
   "id1": "id_0001",
   "id2": "id_0002"
 }
+```
+
 POST /ask-me-anything/
 Ask a general question using Gemini Pro.
 
-Body Example:
-
-json
-Copy
-Edit
+```bash
 {
   "question": "What are motifs in DNA?"
 }
+```

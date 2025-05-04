@@ -1,4 +1,3 @@
-# DNASequenceAnalysis-APIDevelopment
 # 🧬 DNA Sequence Analysis & API Development
 
 This project provides a FastAPI-based backend to analyze ancient DNA samples using generated sequences and compares their similarities. It also includes an "Ask Me Anything" feature powered by Gemini AI.

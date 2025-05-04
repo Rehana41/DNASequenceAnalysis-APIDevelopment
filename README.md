@@ -1,5 +1,5 @@
 # DNASequenceAnalysis-APIDevelopment
-# 🧬 DNA Sequence Analysis API
+# 🧬 DNA Sequence Analysis & API Development
 
 This project provides a FastAPI-based backend to analyze ancient DNA samples using generated sequences and compares their similarities. It also includes an "Ask Me Anything" feature powered by Gemini AI.
 
@@ -25,7 +25,7 @@ uvicorn main:app --reload
 ```
 
 The server will run at:
-http://127.0.0.1:8000
+http://127.0.0.1:8000.
 Visit http://127.0.0.1:8000/docs to explore and test the API.
 
 ### 📤 API Endpoints

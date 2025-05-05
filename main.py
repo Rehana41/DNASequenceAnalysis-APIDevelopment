@@ -110,7 +110,6 @@ async def ask_me_anything(req: AskRequest):
     
     headers = {
         "Content-Type": "application/json",
-        
     }
 
     payload = {
@@ -125,27 +124,36 @@ async def ask_me_anything(req: AskRequest):
     try:
         async with httpx.AsyncClient() as client:
             response = await client.post(
-                "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent",
+                "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent",
                 headers=headers,
                 params={"key": GEMINI_API_KEY},
                 json=payload
             )
-        response.raise_for_status()
-        data = response.json()
+            response.raise_for_status()
+            data = response.json()
 
-        # Safely check for Gemini reply
+        # Print full response for debugging
+        print("Gemini API full response:", data)
+
         if "candidates" in data and data["candidates"]:
             reply = data["candidates"][0]["content"]["parts"][0]["text"]
             return {"response": reply}
         else:
             raise HTTPException(status_code=500, detail="No response from Gemini.")
+
     except httpx.HTTPStatusError as e:
+        print("HTTPStatusError response text:", e.response.text)
         raise HTTPException(status_code=response.status_code, detail=f"Gemini API error: {e.response.text}")
     except Exception as e:
+        import traceback
+        tb = traceback.format_exc()
+        print("Unexpected error:", str(e), "\nTraceback:", tb)
         raise HTTPException(status_code=500, detail=f"LLM Error: {str(e)}")
 
 
 # Optional: run with `python main.py`
+# Use this only in development, and without reload=True on Windows
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
+

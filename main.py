@@ -110,25 +110,40 @@ async def ask_me_anything(req: AskRequest):
     
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {GEMINI_API_KEY}"
+        
     }
+
     payload = {
-        "contents": [{"parts": [{"text": req.question}]}],
+        "contents": [
+            {
+                "role": "user",
+                "parts": [{"text": req.question}]
+            }
+        ]
     }
 
     try:
         async with httpx.AsyncClient() as client:
             response = await client.post(
-                "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
+                "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent",
                 headers=headers,
                 params={"key": GEMINI_API_KEY},
                 json=payload
             )
         response.raise_for_status()
-        reply = response.json()["candidates"][0]["content"]["parts"][0]["text"]
-        return {"response": reply}
+        data = response.json()
+
+        # Safely check for Gemini reply
+        if "candidates" in data and data["candidates"]:
+            reply = data["candidates"][0]["content"]["parts"][0]["text"]
+            return {"response": reply}
+        else:
+            raise HTTPException(status_code=500, detail="No response from Gemini.")
+    except httpx.HTTPStatusError as e:
+        raise HTTPException(status_code=response.status_code, detail=f"Gemini API error: {e.response.text}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"LLM Error: {str(e)}")
+
 
 # Optional: run with `python main.py`
 if __name__ == "__main__":

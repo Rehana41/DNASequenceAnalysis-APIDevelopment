@@ -14,6 +14,12 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the DNA Assignment API!"}
+
+
+
 # Enable CORS for frontend interaction if needed
 app.add_middleware(
     CORSMiddleware,

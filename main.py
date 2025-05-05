@@ -6,7 +6,7 @@ import httpx
 import os
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
-from func import s as generate_sequence_func  # DNA sequence generator
+# from func import s as generate_sequence_func  # temporarily disabled
 
 # Load environment variables from .env
 load_dotenv()
@@ -17,8 +17,6 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the DNA Assignment API!"}
-
-
 
 # Enable CORS for frontend interaction if needed
 app.add_middleware(
@@ -60,15 +58,20 @@ async def upload_csv(file: UploadFile = File(...)):
 
 @app.get("/generate-sequence/")
 async def generate_sequence(id: str):
+    print(f"Received ID for generation: {id}")
     if id not in ancient_data:
         raise HTTPException(status_code=404, detail="Sample ID not found.")
     if id in generated_sequences:
         return {"id": id, "sequence": generated_sequences[id]}
     
-    data = ancient_data[id]
-    sequence = generate_sequence_func(id=id, region=data["region"], age=data["age"], dna_seed=data["seed"])
-    generated_sequences[id] = sequence
-    return {"id": id, "sequence": sequence}
+    try:
+        # DEBUG LINE — replace real function with dummy result
+        sequence = "ATCGATCGATCGATCG"
+        # If it works, the issue is inside func.py
+        generated_sequences[id] = sequence
+        return {"id": id, "sequence": sequence}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error generating sequence: {str(e)}")
 
 @app.post("/compare-sequences/")
 async def compare_sequences(request: CompareRequest):
@@ -76,18 +79,14 @@ async def compare_sequences(request: CompareRequest):
     if id1 not in ancient_data or id2 not in ancient_data:
         raise HTTPException(status_code=404, detail="One or both sample IDs not found.")
 
-    # Get or generate sequences
     if id1 not in generated_sequences:
-        data1 = ancient_data[id1]
-        generated_sequences[id1] = generate_sequence_func(id=id1, region=data1["region"], age=data1["age"], dna_seed=data1["seed"])
+        generated_sequences[id1] = "ATCGATCGATCGATCG"
     if id2 not in generated_sequences:
-        data2 = ancient_data[id2]
-        generated_sequences[id2] = generate_sequence_func(id=id2, region=data2["region"], age=data2["age"], dna_seed=data2["seed"])
+        generated_sequences[id2] = "ATCGATCGATCGATCG"
 
     seq1 = generated_sequences[id1]
     seq2 = generated_sequences[id2]
 
-    # Compare using shared 4-mers
     def get_motifs(sequence: str, k: int = 4):
         return set(sequence[i:i+k] for i in range(0, len(sequence) - k + 1, k))
 
